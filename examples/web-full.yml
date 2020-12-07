@@ -1,0 +1,28 @@
+name: web build
+description: build web project
+version: 0.1.0
+
+workflows:
+  - name: install dependencies
+    description: install required dependencies for web
+    actions:
+      - name: install web dependencies
+        description: run web install script
+        commands:
+          - echo "install web dependencies"
+      - name: install api dependencies
+        description: run api install script
+        commands:
+          - echo "install api dependencies"
+
+  - name: build application
+    description: build application for deployment
+    actions:
+      - name: build web
+        description: build frontend web application
+        commands:
+          - echo "build web"
+      - name: build api
+        description: build backend application
+        commands:
+          - echo "build backend api"

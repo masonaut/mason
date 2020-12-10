@@ -1,7 +1,7 @@
 package models
 
-type Workflow struct {
+type Action struct {
 	Name        string   `yaml:"name"`
 	Description string   `yaml:"description"`
-	Actions     []Action `yaml:"actions"`
+	Commands    []string `yaml:"commands"`
 }

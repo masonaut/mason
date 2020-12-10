@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"mason/internal/display"
 	"mason/internal/files"
 	"mason/internal/parse"
 	"os"
@@ -21,9 +22,7 @@ var MainCommand = &cobra.Command{
 		}
 
 		masonfile := parse.Yaml(files.ReadFileToByte(file))
-		for _, v := range masonfile.Workflows {
-			fmt.Println(v.Name)
-		}
+		display.Menu(masonfile)
 	},
 }
 

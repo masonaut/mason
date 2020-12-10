@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"mason/internal/files"
+	"mason/internal/models"
 	"mason/internal/parse"
 	"os"
 
@@ -19,10 +20,13 @@ var WorkflowCommand = &cobra.Command{
 			os.Exit(0)
 		}
 
+		var actions []models.Action
+
 		masonfile := parse.Yaml(files.ReadFileToByte(file))
 		for _, val := range masonfile.Workflows {
 			if val.Name == args[0] {
-				fmt.Println(val.Actions)
+				actions = val.Actions
+				fmt.Println(actions)
 				return
 			}
 		}
@@ -31,19 +35,6 @@ var WorkflowCommand = &cobra.Command{
 	},
 }
 
-var WorkflowListCommand = &cobra.Command{
-	Use:   "list",
-	Short: "List workflows",
-	Long:  "List workflows",
-	Run: func(cmd *cobra.Command, args []string) {
-		masonfile := parse.Yaml(files.ReadFileToByte(file))
-		for _, v := range masonfile.Workflows {
-			fmt.Println(v.Name)
-		}
-	},
-}
-
 func init() {
-	WorkflowCommand.AddCommand(WorkflowListCommand)
 	MainCommand.AddCommand(WorkflowCommand)
 }

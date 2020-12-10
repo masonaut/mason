@@ -2,17 +2,30 @@ package cmd
 
 import (
 	"fmt"
+	"mason/internal/files"
+	"mason/internal/parse"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
+var file string
+
 var MainCommand = &cobra.Command{
 	Use:   "mason",
 	Short: "build system",
-}
+	Run: func(cmd *cobra.Command, args []string) {
+		if file == "" {
+			cmd.Help()
+			os.Exit(0)
+		}
 
-var file string
+		masonfile := parse.Yaml(files.ReadFileToByte(file))
+		for _, v := range masonfile.Workflows {
+			fmt.Println(v.Name)
+		}
+	},
+}
 
 func Execute() {
 	MainCommand.Version = "0.1.0"

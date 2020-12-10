@@ -10,8 +10,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func Yaml(file []byte) models.Mason {
-	config := models.Mason{}
+func Yaml(file []byte) models.Project {
+	config := models.Project{}
 
 	err := yaml.Unmarshal(file, &config)
 	if err != nil {
@@ -22,7 +22,7 @@ func Yaml(file []byte) models.Mason {
 	return format(config)
 }
 
-func format(data models.Mason) models.Mason {
+func format(data models.Project) models.Project {
 	for idx, val := range data.Workflows {
 		// regular express to replace spaces and underscores with dashes
 		re := regexp.MustCompile(`[\s_\/]+`)
